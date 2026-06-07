@@ -131,7 +131,7 @@
 
 <div class="container" id="app">
     <div id="page-1" class="page active">
-        <img src="logo.png" alt="磐遇暖心製造所" class="logo-img">
+        <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="logo-img">
         <h1>磐遇暖心製造所</h1>
         <p class="subtitle">☽ 尋找你的專屬守護光芒 ☾<br>3分鐘測出你的靈魂水態與命定水晶</p>
         
@@ -152,7 +152,7 @@
         <button onclick="startQuiz()">輕推書門，開始測驗</button>
         
         <footer>
-            <img src="logo.png" alt="磐遇暖心製造所" class="footer-logo">
+            <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="footer-logo">
             <p>來看美貨跟我的短影片分享：<br><a class="social-link" href="https://www.instagram.com/panyu_handmade/" target="_blank">@磐遇暖心製造所 IG</a></p>
             <p>© 2026 磐遇暖心製造所 Copyright</p>
         </footer>
@@ -166,7 +166,7 @@
 
     <div id="page-3" class="page" style="padding-bottom: 20px;">
         <div id="capture-area" style="background: var(--panel-bg); padding: 15px; border-radius: 8px;">
-            <img src="logo.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
+            <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
             <h2 style="margin-top:0;">你的專屬能量報告</h2>
             <p class="subtitle" style="margin-bottom: 15px;">親愛的 <span id="resName" style="font-weight:bold;"></span>，這是宇宙給你的指引</p>
             
@@ -239,4 +239,195 @@ const crystalDB = [
     { name: "【智囊團】高質理智正緣款", numbers: [2, 6, 7, 9], desc: "紫水晶切角 + 粉晶 + 薰衣草紫水晶。極致爆發的火性能量，帶來理智與智慧，招來靈性貴人。" },
     { name: "【淨化者】絕對領域防禦款", numbers: [1, 4, 7], desc: "銀曜石 + 灰月光 + 茶晶。深色系極致守護，適合頻繁出入複雜場所、高壓職場，建立強大心理邊界。" },
     { name: "【長線者】歲月靜好成長款", numbers: [4, 5], desc: "葡萄石 + 海藍寶 + 白水晶。帶有春天的清新感，防範職場小摩擦，追求生活質量的穩定生機。" },
-    { name: "【職場霸主】高階防禦招財款", numbers: [1, 4, 8], desc: "金曜石 + 茶晶 + 鈦晶 + 白水晶
+    { name: "【職場霸主】高階防禦招財款", numbers: [1, 4, 8], desc: "金曜石 + 茶晶 + 鈦晶 + 白水晶。既要極致招財，又要極致防禦的最強矛盾大對決。" },
+    { name: "【全能巔峰組合】十全十美全效款", numbers: [1,2,3,4,5,6,7,8,9], desc: "全脈輪共振，什麼都想要的終極懶人包。適合近期運勢低迷想全面改運的你。" }
+];
+
+const statesDB = {
+    "dewdrop": { 
+        name: "晨曦的露珠", img: "晨曦的露珠.png", desc: "你充滿了想法與熱情，但在風中微微顫抖。你不是沒有能力，你只是還在尋找能讓你安穩落下的那片葉子。", 
+        subStr: "【 漸層海藍寶 / 藍晶石 】素串", 
+        sub1: "1. 漸層海藍寶", sub1Desc: "象徵流動的溝通能量，讓話語更具感染力", 
+        sub2: "2. 藍晶石", sub2Desc: "能量如閃電般快速，能強化直覺並將想法轉化為行動目標" 
+    },
+    "droplet": { 
+        name: "杯緣的水滴", img: "杯緣的水滴.png", desc: "你總是把別人的情緒掛在心上，卻忘了回頭抱抱那個快要承載不住的自己。你需要建立溫柔的邊界。", 
+        subStr: "【 粉晶 / 草莓晶 】素串", 
+        sub1: "1. 粉晶", sub1Desc: "溫柔展開心房，自然吸引好人緣與愛", 
+        sub2: "2. 草莓晶", sub2Desc: "提升個人魅力，讓你身邊充滿舒適與善意的磁場" 
+    },
+    "rain": { 
+        name: "靜謐的落雨", img: "靜謐的落雨.png", desc: "外人看你冷靜有條理，但這場雨下很久了。你正用自己的節奏，默默洗刷那些不被理解的疲憊與混雜磁場。", 
+        subStr: "【 黑曜石 / 黑髮晶 】素串", 
+        sub1: "1. 黑曜石", sub1Desc: "極致防禦，擋去不必要的負面干擾", 
+        sub2: "2. 黑髮晶", sub2Desc: "斬斷防小人，為你建立安心無死角的防護罩" 
+    },
+    "snow": { 
+        name: "高空的初雪", img: "高空的初雪.png", desc: "美麗純粹，卻帶著一絲不易親近的冰涼。你習慣用完美的表現保護自己，害怕別人看見你底層的脆弱。", 
+        subStr: "【 白水晶 / 紫水晶 】素串", 
+        sub1: "1. 白水晶", sub1Desc: "淨化雜亂思緒，讓心靈回歸最純淨的狀態", 
+        sub2: "2. 紫水晶", sub2Desc: "開啟頂輪智慧，幫你放鬆緊繃的腦袋找回平靜" 
+    },
+    "ice": { 
+        name: "沉睡的堅冰", img: "沉睡的堅冰.png", desc: "心裡的工廠按下了暫停鍵，對很多事提不起勁。別責怪自己，這是靈魂在保護你，提醒你該好好冬眠了。", 
+        subStr: "【 拉長石 / 茶晶 】素串", 
+        sub1: "1. 拉長石", sub1Desc: "深層療癒疲憊的靈魂，撫平內在的焦慮", 
+        sub2: "2. 茶晶", sub2Desc: "穩定你的底氣，慢慢將耗損的能量安穩扎根" 
+    },
+    "mist": { 
+        name: "繚繞的薄霧", img: "繚繞的薄霧.png", desc: "站在人生十字路口，聲音太多，讓你漸漸看不清自己真正想去的地方。你需要一陣風，吹散迷茫。", 
+        subStr: "【 青金石 / 螢石 】素串", 
+        sub1: "1. 青金石", sub1Desc: "開啟洞察力，看見事物本質並輔助直覺", 
+        sub2: "2. 螢石", sub2Desc: "清理大腦迷霧，清晰思緒並輔助你的決策力" 
+    }
+};
+
+const questions = [
+    { q: "鬧鐘響起的那一瞬間，睜開眼看著天花板，你大腦浮現的第一個體感通常是？", 
+      options: [
+          { t: "「啊...又是重複的一天。」心裡有股淡淡疲憊，想逃避現實。", type: "ice" },
+          { t: "「今天還有那件事要搞定...」身體瞬間緊繃，像機械開始運轉。", type: "dewdrop" },
+          { t: "腦袋裡已經有幾個想做的事在跳躍，但不知道該先抓哪一個。", type: "mist" }
+      ]},
+    { q: "下班回家洗完澡的片刻，你最習慣讓自己停留在哪種「聲音」裡？", 
+      options: [
+          { t: "把電視或音樂開得很大聲，不想要太安靜。", type: "droplet" },
+          { t: "完全不想聽任何聲音，只想躺在黑暗中放空。", type: "rain" },
+          { t: "聽著規律的白噪音，或邊聽 PodCast 邊收拾房間。", type: "snow" }
+      ]},
+    { q: "走在路上，當櫥窗玻璃倒映出自己的身影時，你通常會注意哪個部分？", 
+      options: [
+          { t: "微微駝背的肩膀，或是看起來有點疲憊的眼神。", type: "ice" },
+          { t: "身上的穿搭，評估今天看起來是不是足夠體面專業。", type: "dewdrop" },
+          { t: "其實不太想直視鏡中的自己，匆匆一瞥就移開視線。", type: "mist" }
+      ]},
+    { q: "當你在生活中遇到被誤解、或是不順心的事情時，你最習慣的反應是？", 
+      options: [
+          { t: "瞬間卡在胸口，表面說沒關係，內心反覆回想。", type: "droplet" },
+          { t: "立刻在腦中理出解決方案，試圖用理性壓制情緒。", type: "snow" },
+          { t: "感到一陣莫名的煩躁，想立刻離開現場隔絕視線。", type: "rain" }
+      ]},
+    { q: "走入一家安靜的獨立咖啡廳，你直覺自己會被哪一個角落吸引？", 
+      options: [
+          { t: "有陽光從窗外灑落、擺放著綠色植物的窗邊座位。", type: "dewdrop" },
+          { t: "四周被高大書架包圍、燈光有些昏黃的沙發深處。", type: "ice" },
+          { t: "能看見店員忙碌，或觀察到店內所有人動向的吧台區。", type: "mist" }
+      ]},
+    { q: "這個週末完全沒有任何行程與打擾，你最想為自己做的一件事是？", 
+      options: [
+          { t: "換上舒服的衣服漫無目的散步，去大自然吹吹風。", type: "mist" },
+          { t: "待在房間把髒衣服洗掉、好好整理房間建立秩序。", type: "snow" },
+          { t: "窩在床上拉上窗簾大睡一場，或是把影集一次追完。", type: "ice" }
+      ]}
+];
+
+const lifePathDescDB = {
+    1: "開創、帶頭、點火。你擁有無中生有的開創力與強烈目標感。",
+    2: "連結、感受、協調。你細膩敏感，是關係中溫暖的潤滑與橋樑。",
+    3: "表達、創意、擴散。你靈感源源不絕，擁有將想法渲染給他人的魅力。",
+    4: "穩定、結構、落地。你踏實可靠，是能將事物長期建構與累積的基石。",
+    5: "變化、連結、擴展。你適應力強，是能帶動資源流動與跨界探索的橋樑。",
+    6: "責任、照顧、平衡。你充滿愛與包容，擁有讓人安心與療癒的守護能量。",
+    7: "思考、洞察、深度。你觀察力強，能看透事物本質並提出獨特見解。",
+    8: "資源、權責、成果。你企圖心強，具備出色的資源整合與現實顯化能力。",
+    9: "大局、服務、完成。你視野宏觀，帶有同理眾人與完成使命的整合能量。"
+};
+
+let currentQ = 0;
+let scores = { dewdrop:0, droplet:0, rain:0, snow:0, ice:0, mist:0 };
+let userData = { name: "", year: "", month: "", day: "", lifePath: 0, missing: [] };
+
+window.onload = () => {
+    let y = document.getElementById('userYear');
+    for(let i = 2020; i >= 1950; i--) y.innerHTML += `<option value="${i}">${i} 年</option>`;
+    let m = document.getElementById('userMonth');
+    for(let i = 1; i <= 12; i++) m.innerHTML += `<option value="${i}">${i} 月</option>`;
+    let d = document.getElementById('userDay');
+    for(let i = 1; i <= 31; i++) d.innerHTML += `<option value="${i}">${i} 日</option>`;
+};
+
+function switchPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+}
+
+function startQuiz() {
+    userData.name = document.getElementById('userName').value || "旅行者";
+    userData.year = document.getElementById('userYear').value;
+    userData.month = document.getElementById('userMonth').value;
+    userData.day = document.getElementById('userDay').value;
+    
+    let dateStr = userData.year + userData.month + userData.day;
+    let sum1 = dateStr.split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    let sum2 = sum1.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    userData.lifePath = (sum2 > 9) ? sum2.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0) : sum2;
+    
+    let allNumbers = (dateStr + sum1.toString() + sum2.toString()).split('');
+    userData.missing = [1,2,3,4,5,6,7,8,9].filter(n => !allNumbers.includes(n.toString()));
+
+    switchPage('page-2');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    if (currentQ >= questions.length) return generateReport();
+    document.getElementById('quizProgress').innerText = `溫暖感知 ${currentQ + 1} / 6`;
+    document.getElementById('questionText').innerText = questions[currentQ].q;
+    
+    let optsHTML = "";
+    questions[currentQ].options.forEach(opt => {
+        optsHTML += `<div class="option" onclick="selectOption('${opt.type}')">${opt.t}</div>`;
+    });
+    document.getElementById('optionsContainer').innerHTML = optsHTML;
+}
+
+function selectOption(type) {
+    scores[type]++;
+    currentQ++;
+    renderQuestion();
+}
+
+function generateReport() {
+    let finalState = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    let stateData = statesDB[finalState];
+    let mainCrystal = crystalDB.find(c => c.numbers.includes(userData.lifePath)) || crystalDB[11]; // 預設為全能款
+
+    document.getElementById('resName').innerText = userData.name;
+    document.getElementById('resStateName').innerText = stateData.name;
+    document.getElementById('resStateDesc').innerText = stateData.desc;
+    document.getElementById('resStateImg').src = stateData.img; // 套用你上傳的6種圖片檔名
+    
+    document.getElementById('resLifePath').innerText = userData.lifePath;
+    document.getElementById('resLifePathDesc').innerText = lifePathDescDB[userData.lifePath];
+    let missingText = userData.missing.length > 0 ? userData.missing.join(", ") : "無明顯缺數，能量平衡";
+    document.getElementById('resMissingNumbers').innerText = missingText;
+    
+    document.getElementById('resMainCrystalName').innerText = mainCrystal.name;
+    document.getElementById('resMainCrystalDesc').innerText = mainCrystal.desc;
+    
+    // 副水晶(素串)格式完全比照範本
+    document.getElementById('resSubCrystalStr').innerText = stateData.subStr;
+    document.getElementById('resSubMissing').innerText = missingText;
+    document.getElementById('resSubStateName').innerText = stateData.name;
+    document.getElementById('resSub1').innerText = stateData.sub1;
+    document.getElementById('resSub1Desc').innerText = stateData.sub1Desc;
+    document.getElementById('resSub2').innerText = stateData.sub2;
+    document.getElementById('resSub2Desc').innerText = stateData.sub2Desc;
+
+    switchPage('page-3');
+}
+
+function downloadReport() {
+    window.scrollTo(0,0);
+    html2canvas(document.getElementById("capture-area"), { scale: 2, useCORS: true }).then(canvas => {
+        let link = document.createElement('a');
+        link.download = `磐遇暖心_${userData.name}的能量報告.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+
+function goToLine() { window.open("https://lin.ee/N0Z7nii", "_blank"); }
+</script>
+</body>
+</html>
