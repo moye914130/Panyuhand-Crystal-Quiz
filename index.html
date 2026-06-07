@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>磐遇暖心製造所 - 專屬能量測驗</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700&display=swap');
+        
+        :root {
+            --text-main: #3E2B24;
+            --text-light: #6B5B53;
+            --accent: #B87333;
+            --accent-light: #D4A373;
+            --panel-bg: rgba(255, 255, 255, 0.92);
+        }
+
+        /* 晚霞流動背景與星星動畫 */
+        body {
+            font-family: 'Noto Serif TC', 'MingLiU', serif;
+            margin: 0; padding: 0;
+            background: linear-gradient(135deg, #1f112e, #4b2a4c, #c06f5e, #e8a984);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
+            color: var(--text-main);
+            display: flex; justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 星星背景層 */
+        .stars {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="10" cy="10" r="1.5" fill="white" opacity="0.8"/><circle cx="50" cy="50" r="1" fill="white" opacity="0.5"/><circle cx="80" cy="20" r="2" fill="white" opacity="0.3"/></svg>') repeat;
+            animation: twinkle 4s infinite alternate;
+            z-index: 0; pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        .container {
+            max-width: 500px; width: 100%; min-height: 100vh;
+            padding: 30px 20px; box-sizing: border-box;
+            background: var(--panel-bg);
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+            position: relative; z-index: 1;
+            display: flex; flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+
+        .page { display: none; animation: floatUp 0.8s ease-out; flex-grow: 1; }
+        .page.active { display: block; }
+        @keyframes floatUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* LOGO排版與視覺 */
+        .logo-img { display: block; margin: 0 auto 15px auto; max-width: 150px; }
+        h1 { text-align: center; color: var(--text-main); font-weight: bold; letter-spacing: 2px; margin-bottom: 5px; font-size: 1.6em; }
+        .subtitle { text-align: center; color: var(--accent); font-size: 0.95em; margin-bottom: 25px; line-height: 1.6; }
+        
+        /* 避免破圖的表單設計 */
+        .input-group { margin-bottom: 20px; }
+        .input-group label { display: block; margin-bottom: 8px; font-size: 0.95em; color: var(--text-main); font-weight: bold; }
+        input, select {
+            width: 100%; padding: 14px; border: 1px solid var(--accent-light); border-radius: 6px;
+            background: rgba(255, 255, 255, 0.8); font-family: 'Noto Serif TC'; font-size: 16px;
+            box-sizing: border-box; outline: none; transition: 0.3s;
+        }
+        input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 8px rgba(184, 115, 51, 0.3); }
+        
+        .date-group { display: flex; gap: 10px; flex-wrap: wrap; }
+        .date-group select { flex: 1; min-width: 30%; }
+
+        /* 按鈕設計 */
+        button {
+            width: 100%; padding: 16px; border: none; border-radius: 6px;
+            background: var(--accent); color: white; font-family: 'Noto Serif TC'; font-size: 16px;
+            cursor: pointer; transition: all 0.3s ease; font-weight: bold; margin-bottom: 12px; letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(184, 115, 51, 0.3);
+        }
+        button:hover { background: #A06028; transform: translateY(-2px); }
+        
+        .option {
+            padding: 16px; margin-bottom: 15px; border-radius: 8px;
+            background: #FFFBF5; border: 1px solid #EAE0D5;
+            cursor: pointer; transition: 0.3s; color: var(--text-main);
+        }
+        .option:hover { border-color: var(--accent); background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* 結果頁排版 - 帶有書本溫暖感 */
+        .result-card { 
+            background: #fff; padding: 25px; border-radius: 12px; margin-bottom: 20px; 
+            border: 1px solid #F0E6D2; position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+        }
+        .result-card::before {
+            content: '❝'; position: absolute; top: 10px; left: 15px;
+            font-size: 2em; color: var(--accent-light); opacity: 0.3; font-family: serif;
+        }
+        .state-image-container { width: 100%; border-radius: 8px; overflow: hidden; margin-bottom: 15px; text-align: center; }
+        .state-image-container img { max-width: 100%; height: auto; border-radius: 8px; }
+        
+        .tag { display: inline-block; background: var(--accent-light); color: #fff; padding: 4px 12px; border-radius: 20px; font-size: 0.85em; margin-bottom: 10px; letter-spacing: 1px; }
+        
+        .crystal-placeholder { 
+            width: 100%; height: 200px; background: #FAF7F2; border-radius: 8px; 
+            display: flex; align-items: center; justify-content: center; color: var(--text-light); 
+            border: 1px dashed #D4A373; margin: 15px 0;
+            display: none; /* ⭐ 暫時不顯示主水晶圖片區塊，未來拿掉這行即可顯示 */
+        }
+
+        /* 頁腳 */
+        footer { margin-top: auto; text-align: center; font-size: 0.85em; color: var(--text-light); border-top: 1px solid #EAE0D5; padding-top: 20px; padding-bottom: 20px; }
+        .social-link { color: var(--accent); text-decoration: none; font-weight: bold; }
+        .footer-logo { max-width: 80px; margin: 5px auto; display: block; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="container" id="app">
+    <div id="page-1" class="page active">
+        <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="logo-img">
+        <h1>磐遇暖心製造所</h1>
+        <p class="subtitle">☽ 尋找你的專屬守護光芒 ☾<br>3分鐘測出你的靈魂水態與命定水晶</p>
+        
+        <div class="input-group">
+            <label>你希望我們怎麼稱呼你？</label>
+            <input type="text" id="userName" placeholder="請輸入暱稱">
+        </div>
+        
+        <div class="input-group">
+            <label>你的西元出生年月日（用於計算生命靈數）</label>
+            <div class="date-group">
+                <select id="userYear"></select>
+                <select id="userMonth"></select>
+                <select id="userDay"></select>
+            </div>
+        </div>
+        
+        <button onclick="startQuiz()">輕推書門，開始測驗</button>
+        
+        <footer>
+            <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="footer-logo">
+            <p>來看美貨跟我的短影片分享：<br><a class="social-link" href="https://www.instagram.com/panyu_handmade/" target="_blank">@磐遇暖心製造所 IG</a></p>
+            <p>© 2026 磐遇暖心製造所 Copyright</p>
+        </footer>
+    </div>
+
+    <div id="page-2" class="page">
+        <p style="text-align: center; color: var(--accent); font-size: 0.9em; letter-spacing: 1px;" id="quizProgress">問題 1 / 6</p>
+        <h3 id="questionText" style="margin-bottom: 25px; line-height: 1.5;"></h3>
+        <div id="optionsContainer"></div>
+    </div>
+
+    <div id="page-3" class="page" style="padding-bottom: 20px;">
+        <div id="capture-area" style="background: var(--panel-bg); padding: 15px; border-radius: 8px;">
+            <img src="磐遇LOGO.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
+            <h2 style="margin-top:0;">你的專屬能量報告</h2>
+            <p class="subtitle" style="margin-bottom: 15px;">親愛的 <span id="resName" style="font-weight:bold;"></span>，這是宇宙給你的指引</p>
+            
+            <div class="result-card">
+                <span class="tag">你的靈魂水態</span>
+                <h3 id="resStateName" style="margin-top: 5px; color: var(--accent);"></h3>
+                <div class="state-image-container">
+                    <img id="resStateImg" src="" alt="靈魂水態">
+                </div>
+                <p id="resStateDesc" style="line-height: 1.6;"></p>
+            </div>
+
+            <div class="result-card">
+                <span class="tag">生命靈數解碼</span>
+                <p style="margin-top:5px;"><strong>你的主命數：<span id="resLifePath"></span> 號人</strong></p>
+                <p style="font-size: 0.95em; line-height: 1.6;" id="resLifePathDesc"></p>
+                <p style="margin-bottom:0;"><strong>能量缺數：<span id="resMissingNumbers"></span></strong></p>
+            </div>
+
+            <div class="result-card">
+                <span class="tag">為你調配的專屬配方</span>
+                
+                <h4 style="margin: 15px 0 5px 0;">🌟 核心主水晶：</h4>
+                <p style="color: var(--accent); font-weight: bold; margin-top:0;" id="resMainCrystalName"></p>
+                <div class="crystal-placeholder">（主水晶圖片預留位）</div>
+                <p style="font-size: 0.95em; line-height: 1.6;" id="resMainCrystalDesc"></p>
+                
+                <div style="height: 1px; background: #EAE0D5; margin: 20px 0;"></div>
+
+                <h4 style="margin: 0 0 5px 0;">📿 守護副水晶（素串疊戴）：</h4>
+                <p style="color: var(--accent); font-weight: bold; margin-top:0;" id="resSubCrystalStr"></p>
+                
+                <p style="font-size: 0.9em; color: var(--text-light);">👉 你的能量缺數為：【<span id="resSubMissing"></span>】。<br>
+                針對你當前「<span id="resSubStateName"></span>」的靈魂水態，我們為你挑選了以下素串疊戴：</p>
+                
+                <p style="font-size: 0.95em; font-weight: bold; margin-bottom: 2px;">✨ 能量特色：</p>
+                <p style="font-size: 0.95em; margin-top:0; line-height: 1.6;">
+                    <strong style="color: var(--text-main);"><span id="resSub1"></span></strong><br>
+                    <span id="resSub1Desc"></span><br><br>
+                    <strong style="color: var(--text-main);"><span id="resSub2"></span></strong><br>
+                    <span id="resSub2Desc"></span>
+                </p>
+            </div>
+        </div>
+
+        <button style="margin-top: 20px;" onclick="downloadReport()">📥 一鍵儲存能量報告</button>
+        <button style="background: #508D4E; margin-top: 5px;" onclick="goToLine()">💬 帶著圖片私訊 Line@ 詢問訂製</button>
+        <button style="background: transparent; border: 1px solid var(--accent); color: var(--accent); margin-top: 5px;" onclick="location.reload()">↺ 重新測驗 / 回首頁</button>
+        
+        <footer style="margin-top: 20px;">
+            <p>來看美貨跟我的短影片分享：<br><a class="social-link" href="https://www.instagram.com/panyu_handmade/" target="_blank">@磐遇暖心製造所 IG</a></p>
+            <p>© 2026 磐遇暖心製造所 Copyright</p>
+        </footer>
+    </div>
+</div>
+
+<script>
+// ==========================================
+// 🗄️ 磐遇暖心製造所 - 更新為 12 款水晶與精細素串資料庫
+// ==========================================
+
+const crystalDB = [
+    { name: "【開拓先鋒】頂級財神降臨款", numbers: [1, 4, 8], desc: "鈦晶 + 綠幽靈 + 黃水晶。適合創業者與渴望晉升的主管。強勢打通正財與偏財的雙向管道，建立不可撼動的職場底氣。" },
+    { name: "【破局者】破局王者氣場款", numbers: [1, 5, 8], desc: "閃電藍虎眼 + 金曜石 + 茶晶 + 黑金超 + 白水晶。專為高階決策者打造，深色礦石強力擋煞，幫助關鍵時刻拍板定案。" },
+    { name: "【價值傳遞者】靈感表達款", numbers: [5, 6], desc: "海藍寶 + 白水晶。適合講師、客服與內容創作者。溫柔的水性能量撫平表達焦慮，輕鬆傳遞核心價值。" },
+    { name: "【影響力中心】絕對親和爆單款", numbers: [2, 6, 9], desc: "摩根石 + 草莓晶 + 橙月光。打造業績與客源的超級磁鐵！大幅提升包容心與親和力，讓客戶與貴人不自覺想靠近。" },
+    { name: "【靈感獵人】創意引路款", numbers: [1, 3, 7, 9], desc: "紫水晶 + 金太陽 + 白水晶。專為創意工作者設計，帶來清晰的理智智慧與將企劃化為現實的陽光行動力。" },
+    { name: "【貴人塑造者】高質理智正緣款", numbers: [2, 6, 7, 9], desc: "紫水晶切角 + 粉晶 + 薰衣草紫水晶。專門過濾爛桃花，精準吸引頻率相合的高質量伴侶與靈性貴人。" },
+    { name: "【共感嚮導】森系療癒貴人款", numbers: [2, 3, 4, 6], desc: "綠草莓方塊 + 葡萄石等。滿滿木性能量帶來事業生機，適合高壓企劃或設計師，在舒適節奏中吸引善意貴人。" },
+    { name: "【智囊團】高質理智正緣款", numbers: [2, 6, 7, 9], desc: "紫水晶切角 + 粉晶 + 薰衣草紫水晶。極致爆發的火性能量，帶來理智與智慧，招來靈性貴人。" },
+    { name: "【淨化者】絕對領域防禦款", numbers: [1, 4, 7], desc: "銀曜石 + 灰月光 + 茶晶。深色系極致守護，適合頻繁出入複雜場所、高壓職場，建立強大心理邊界。" },
+    { name: "【長線者】歲月靜好成長款", numbers: [4, 5], desc: "葡萄石 + 海藍寶 + 白水晶。帶有春天的清新感，防範職場小摩擦，追求生活質量的穩定生機。" },
+    { name: "【職場霸主】高階防禦招財款", numbers: [1, 4, 8], desc: "金曜石 + 茶晶 + 鈦晶 + 白水晶。既要極致招財，又要極致防禦的最強矛盾大對決。" },
+    { name: "【全能巔峰組合】十全十美全效款", numbers: [1,2,3,4,5,6,7,8,9], desc: "全脈輪共振，什麼都想要的終極懶人包。適合近期運勢低迷想全面改運的你。" }
+];
+
+const statesDB = {
+    "dewdrop": { 
+        name: "晨曦的露珠", img: "晨曦的露珠.png", desc: "你充滿了想法與熱情，但在風中微微顫抖。你不是沒有能力，你只是還在尋找能讓你安穩落下的那片葉子。", 
+        subStr: "【 漸層海藍寶 / 藍晶石 】素串", 
+        sub1: "1. 漸層海藍寶", sub1Desc: "象徵流動的溝通能量，讓話語更具感染力", 
+        sub2: "2. 藍晶石", sub2Desc: "能量如閃電般快速，能強化直覺並將想法轉化為行動目標" 
+    },
+    "droplet": { 
+        name: "杯緣的水滴", img: "杯緣的水滴.png", desc: "你總是把別人的情緒掛在心上，卻忘了回頭抱抱那個快要承載不住的自己。你需要建立溫柔的邊界。", 
+        subStr: "【 粉晶 / 草莓晶 】素串", 
+        sub1: "1. 粉晶", sub1Desc: "溫柔展開心房，自然吸引好人緣與愛", 
+        sub2: "2. 草莓晶", sub2Desc: "提升個人魅力，讓你身邊充滿舒適與善意的磁場" 
+    },
+    "rain": { 
+        name: "靜謐的落雨", img: "靜謐的落雨.png", desc: "外人看你冷靜有條理，但這場雨下很久了。你正用自己的節奏，默默洗刷那些不被理解的疲憊與混雜磁場。", 
+        subStr: "【 黑曜石 / 黑髮晶 】素串", 
+        sub1: "1. 黑曜石", sub1Desc: "極致防禦，擋去不必要的負面干擾", 
+        sub2: "2. 黑髮晶", sub2Desc: "斬斷防小人，為你建立安心無死角的防護罩" 
+    },
+    "snow": { 
+        name: "高空的初雪", img: "高空的初雪.png", desc: "美麗純粹，卻帶著一絲不易親近的冰涼。你習慣用完美的表現保護自己，害怕別人看見你底層的脆弱。", 
+        subStr: "【 白水晶 / 紫水晶 】素串", 
+        sub1: "1. 白水晶", sub1Desc: "淨化雜亂思緒，讓心靈回歸最純淨的狀態", 
+        sub2: "2. 紫水晶", sub2Desc: "開啟頂輪智慧，幫你放鬆緊繃的腦袋找回平靜" 
+    },
+    "ice": { 
+        name: "沉睡的堅冰", img: "沉睡的堅冰.png", desc: "心裡的工廠按下了暫停鍵，對很多事提不起勁。別責怪自己，這是靈魂在保護你，提醒你該好好冬眠了。", 
+        subStr: "【 拉長石 / 茶晶 】素串", 
+        sub1: "1. 拉長石", sub1Desc: "深層療癒疲憊的靈魂，撫平內在的焦慮", 
+        sub2: "2. 茶晶", sub2Desc: "穩定你的底氣，慢慢將耗損的能量安穩扎根" 
+    },
+    "mist": { 
+        name: "繚繞的薄霧", img: "繚繞的薄霧.png", desc: "站在人生十字路口，聲音太多，讓你漸漸看不清自己真正想去的地方。你需要一陣風，吹散迷茫。", 
+        subStr: "【 青金石 / 螢石 】素串", 
+        sub1: "1. 青金石", sub1Desc: "開啟洞察力，看見事物本質並輔助直覺", 
+        sub2: "2. 螢石", sub2Desc: "清理大腦迷霧，清晰思緒並輔助你的決策力" 
+    }
+};
+
+const questions = [
+    { q: "鬧鐘響起的那一瞬間，睜開眼看著天花板，你大腦浮現的第一個體感通常是？", 
+      options: [
+          { t: "「啊...又是重複的一天。」心裡有股淡淡疲憊，想逃避現實。", type: "ice" },
+          { t: "「今天還有那件事要搞定...」身體瞬間緊繃，像機械開始運轉。", type: "dewdrop" },
+          { t: "腦袋裡已經有幾個想做的事在跳躍，但不知道該先抓哪一個。", type: "mist" }
+      ]},
+    { q: "下班回家洗完澡的片刻，你最習慣讓自己停留在哪種「聲音」裡？", 
+      options: [
+          { t: "把電視或音樂開得很大聲，不想要太安靜。", type: "droplet" },
+          { t: "完全不想聽任何聲音，只想躺在黑暗中放空。", type: "rain" },
+          { t: "聽著規律的白噪音，或邊聽 PodCast 邊收拾房間。", type: "snow" }
+      ]},
+    { q: "走在路上，當櫥窗玻璃倒映出自己的身影時，你通常會注意哪個部分？", 
+      options: [
+          { t: "微微駝背的肩膀，或是看起來有點疲憊的眼神。", type: "ice" },
+          { t: "身上的穿搭，評估今天看起來是不是足夠體面專業。", type: "dewdrop" },
+          { t: "其實不太想直視鏡中的自己，匆匆一瞥就移開視線。", type: "mist" }
+      ]},
+    { q: "當你在生活中遇到被誤解、或是不順心的事情時，你最習慣的反應是？", 
+      options: [
+          { t: "瞬間卡在胸口，表面說沒關係，內心反覆回想。", type: "droplet" },
+          { t: "立刻在腦中理出解決方案，試圖用理性壓制情緒。", type: "snow" },
+          { t: "感到一陣莫名的煩躁，想立刻離開現場隔絕視線。", type: "rain" }
+      ]},
+    { q: "走入一家安靜的獨立咖啡廳，你直覺自己會被哪一個角落吸引？", 
+      options: [
+          { t: "有陽光從窗外灑落、擺放著綠色植物的窗邊座位。", type: "dewdrop" },
+          { t: "四周被高大書架包圍、燈光有些昏黃的沙發深處。", type: "ice" },
+          { t: "能看見店員忙碌，或觀察到店內所有人動向的吧台區。", type: "mist" }
+      ]},
+    { q: "這個週末完全沒有任何行程與打擾，你最想為自己做的一件事是？", 
+      options: [
+          { t: "換上舒服的衣服漫無目的散步，去大自然吹吹風。", type: "mist" },
+          { t: "待在房間把髒衣服洗掉、好好整理房間建立秩序。", type: "snow" },
+          { t: "窩在床上拉上窗簾大睡一場，或是把影集一次追完。", type: "ice" }
+      ]}
+];
+
+const lifePathDescDB = {
+    1: "開創、帶頭、點火。你擁有無中生有的開創力與強烈目標感。",
+    2: "連結、感受、協調。你細膩敏感，是關係中溫暖的潤滑與橋樑。",
+    3: "表達、創意、擴散。你靈感源源不絕，擁有將想法渲染給他人的魅力。",
+    4: "穩定、結構、落地。你踏實可靠，是能將事物長期建構與累積的基石。",
+    5: "變化、連結、擴展。你適應力強，是能帶動資源流動與跨界探索的橋樑。",
+    6: "責任、照顧、平衡。你充滿愛與包容，擁有讓人安心與療癒的守護能量。",
+    7: "思考、洞察、深度。你觀察力強，能看透事物本質並提出獨特見解。",
+    8: "資源、權責、成果。你企圖心強，具備出色的資源整合與現實顯化能力。",
+    9: "大局、服務、完成。你視野宏觀，帶有同理眾人與完成使命的整合能量。"
+};
+
+let currentQ = 0;
+let scores = { dewdrop:0, droplet:0, rain:0, snow:0, ice:0, mist:0 };
+let userData = { name: "", year: "", month: "", day: "", lifePath: 0, missing: [] };
+
+window.onload = () => {
+    let y = document.getElementById('userYear');
+    for(let i = 2020; i >= 1950; i--) y.innerHTML += `<option value="${i}">${i} 年</option>`;
+    let m = document.getElementById('userMonth');
+    for(let i = 1; i <= 12; i++) m.innerHTML += `<option value="${i}">${i} 月</option>`;
+    let d = document.getElementById('userDay');
+    for(let i = 1; i <= 31; i++) d.innerHTML += `<option value="${i}">${i} 日</option>`;
+};
+
+function switchPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById(pageId).classList.add('active');
+}
+
+function startQuiz() {
+    userData.name = document.getElementById('userName').value || "旅行者";
+    userData.year = document.getElementById('userYear').value;
+    userData.month = document.getElementById('userMonth').value;
+    userData.day = document.getElementById('userDay').value;
+    
+    let dateStr = userData.year + userData.month + userData.day;
+    let sum1 = dateStr.split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    let sum2 = sum1.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0);
+    userData.lifePath = (sum2 > 9) ? sum2.toString().split('').reduce((a, b) => parseInt(a) + parseInt(b), 0) : sum2;
+    
+    let allNumbers = (dateStr + sum1.toString() + sum2.toString()).split('');
+    userData.missing = [1,2,3,4,5,6,7,8,9].filter(n => !allNumbers.includes(n.toString()));
+
+    switchPage('page-2');
+    renderQuestion();
+}
+
+function renderQuestion() {
+    if (currentQ >= questions.length) return generateReport();
+    document.getElementById('quizProgress').innerText = `溫暖感知 ${currentQ + 1} / 6`;
+    document.getElementById('questionText').innerText = questions[currentQ].q;
+    
+    let optsHTML = "";
+    questions[currentQ].options.forEach(opt => {
+        optsHTML += `<div class="option" onclick="selectOption('${opt.type}')">${opt.t}</div>`;
+    });
+    document.getElementById('optionsContainer').innerHTML = optsHTML;
+}
+
+function selectOption(type) {
+    scores[type]++;
+    currentQ++;
+    renderQuestion();
+}
+
+function generateReport() {
+    let finalState = Object.keys(scores).reduce((a, b) => scores[a] > scores[b] ? a : b);
+    let stateData = statesDB[finalState];
+    let mainCrystal = crystalDB.find(c => c.numbers.includes(userData.lifePath)) || crystalDB[11]; // 預設為全能款
+
+    document.getElementById('resName').innerText = userData.name;
+    document.getElementById('resStateName').innerText = stateData.name;
+    document.getElementById('resStateDesc').innerText = stateData.desc;
+    document.getElementById('resStateImg').src = stateData.img; // 套用你上傳的6種圖片檔名
+    
+    document.getElementById('resLifePath').innerText = userData.lifePath;
+    document.getElementById('resLifePathDesc').innerText = lifePathDescDB[userData.lifePath];
+    let missingText = userData.missing.length > 0 ? userData.missing.join(", ") : "無明顯缺數，能量平衡";
+    document.getElementById('resMissingNumbers').innerText = missingText;
+    
+    document.getElementById('resMainCrystalName').innerText = mainCrystal.name;
+    document.getElementById('resMainCrystalDesc').innerText = mainCrystal.desc;
+    
+    // 副水晶(素串)格式完全比照範本
+    document.getElementById('resSubCrystalStr').innerText = stateData.subStr;
+    document.getElementById('resSubMissing').innerText = missingText;
+    document.getElementById('resSubStateName').innerText = stateData.name;
+    document.getElementById('resSub1').innerText = stateData.sub1;
+    document.getElementById('resSub1Desc').innerText = stateData.sub1Desc;
+    document.getElementById('resSub2').innerText = stateData.sub2;
+    document.getElementById('resSub2Desc').innerText = stateData.sub2Desc;
+
+    switchPage('page-3');
+}
+
+function downloadReport() {
+    window.scrollTo(0,0);
+    html2canvas(document.getElementById("capture-area"), { scale: 2, useCORS: true }).then(canvas => {
+        let link = document.createElement('a');
+        link.download = `磐遇暖心_${userData.name}的能量報告.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+    });
+}
+
+function goToLine() { window.open("https://lin.ee/N0Z7nii", "_blank"); }
+</script>
+</body>
+</html>
