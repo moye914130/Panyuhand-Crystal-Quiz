@@ -131,7 +131,7 @@
 
 <div class="container" id="app">
     <div id="page-1" class="page active">
-        <img src="logo.png" alt="磐遇暖心製造所" class="logo-img">
+        <img src="./logo.png" alt="磐遇暖心製造所" class="logo-img">
         <h1>磐遇暖心製造所</h1>
         <p class="subtitle">☽ 尋找你的專屬守護光芒 ☾<br>3分鐘測出你的靈魂水態與命定水晶</p>
         
@@ -152,7 +152,7 @@
         <button onclick="startQuiz()">輕推書門，開始測驗</button>
         
         <footer>
-            <img src="logo.png" alt="磐遇暖心製造所" class="footer-logo">
+            <img src="./logo.png" alt="磐遇暖心製造所" class="footer-logo">
             <p>來看美貨跟我的短影片分享：<br><a class="social-link" href="https://www.instagram.com/panyu_handmade/" target="_blank">@磐遇暖心製造所 IG</a></p>
             <p>© 2026 磐遇暖心製造所 Copyright</p>
         </footer>
@@ -166,7 +166,7 @@
 
     <div id="page-3" class="page" style="padding-bottom: 20px;">
         <div id="capture-area" style="background: var(--panel-bg); padding: 15px; border-radius: 8px;">
-            <img src="logo.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
+            <img src="./logo.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
             <h2 style="margin-top:0;">你的專屬能量報告</h2>
             <p class="subtitle" style="margin-bottom: 15px;">親愛的 <span id="resName" style="font-weight:bold;"></span>，這是宇宙給你的指引</p>
             
@@ -243,40 +243,40 @@ const crystalDB = [
     { name: "【全能巔峰組合】十全十美全效款", numbers: [1,2,3,4,5,6,7,8,9], desc: "全脈輪共振，什麼都想要的終極懶人包。適合近期運勢低迷想全面改運的你。" }
 ];
 
-// ⭐ 已全面更新為英文檔名
+// ⭐️ 加上 ./ 強制尋找當前目錄檔案
 const statesDB = {
     "dewdrop": { 
-        name: "晨曦的露珠", img: "dewdrop.png", desc: "你充滿了想法與熱情，但在風中微微顫抖。你不是沒有能力，你只是還在尋找能讓你安穩落下的那片葉子。", 
+        name: "晨曦的露珠", img: "./dewdrop.png", desc: "你充滿了想法與熱情，但在風中微微顫抖。你不是沒有能力，你只是還在尋找能讓你安穩落下的那片葉子。", 
         subStr: "【 漸層海藍寶 / 藍晶石 】素串", 
         sub1: "1. 漸層海藍寶", sub1Desc: "象徵流動的溝通能量，讓話語更具感染力", 
         sub2: "2. 藍晶石", sub2Desc: "能量如閃電般快速，能強化直覺並將想法轉化為行動目標" 
     },
     "droplet": { 
-        name: "杯緣的水滴", img: "droplet.png", desc: "你總是把別人的情緒掛在心上，卻忘了回頭抱抱那個快要承載不住的自己。你需要建立溫柔的邊界。", 
+        name: "杯緣的水滴", img: "./droplet.png", desc: "你總是把別人的情緒掛在心上，卻忘了回頭抱抱那個快要承載不住的自己。你需要建立溫柔的邊界。", 
         subStr: "【 粉晶 / 草莓晶 】素串", 
         sub1: "1. 粉晶", sub1Desc: "溫柔展開心房，自然吸引好人緣與愛", 
         sub2: "2. 草莓晶", sub2Desc: "提升個人魅力，讓你身邊充滿舒適與善意的磁場" 
     },
     "rain": { 
-        name: "靜謐的落雨", img: "rain.png", desc: "外人看你冷靜有條理，但這場雨下很久了。你正用自己的節奏，默默洗刷那些不被理解的疲憊與混雜磁場。", 
+        name: "靜謐的落雨", img: "./rain.png", desc: "外人看你冷靜有條理，但這場雨下很久了。你正用自己的節奏，默默洗刷那些不被理解的疲憊與混雜磁場。", 
         subStr: "【 黑曜石 / 黑髮晶 】素串", 
         sub1: "1. 黑曜石", sub1Desc: "極致防禦，擋去不必要的負面干擾", 
         sub2: "2. 黑髮晶", sub2Desc: "斬斷防小人，為你建立安心無死角的防護罩" 
     },
     "snow": { 
-        name: "高空的初雪", img: "snow.png", desc: "美麗純粹，卻帶著一絲不易親近的冰涼。你習慣用完美的表現保護自己，害怕別人看見你底層的脆弱。", 
+        name: "高空的初雪", img: "./snow.png", desc: "美麗純粹，卻帶著一絲不易親近的冰涼。你習慣用完美的表現保護自己，害怕別人看見你底層的脆弱。", 
         subStr: "【 白水晶 / 紫水晶 】素串", 
         sub1: "1. 白水晶", sub1Desc: "淨化雜亂思緒，讓心靈回歸最純淨的狀態", 
         sub2: "2. 紫水晶", sub2Desc: "開啟頂輪智慧，幫你放鬆緊繃的腦袋找回平靜" 
     },
     "ice": { 
-        name: "沉睡的堅冰", img: "ice.png", desc: "心裡的工廠按下了暫停鍵，對很多事提不起勁。別責怪自己，這是靈魂在保護你，提醒你該好好冬眠了。", 
+        name: "沉睡的堅冰", img: "./ice.png", desc: "心裡的工廠按下了暫停鍵，對很多事提不起勁。別責怪自己，這是靈魂在保護你，提醒你該好好冬眠了。", 
         subStr: "【 拉長石 / 茶晶 】素串", 
         sub1: "1. 拉長石", sub1Desc: "深層療癒疲憊的靈魂，撫平內在的焦慮", 
         sub2: "2. 茶晶", sub2Desc: "穩定你的底氣，慢慢將耗損的能量安穩扎根" 
     },
     "mist": { 
-        name: "繚繞的薄霧", img: "mist.png", desc: "站在人生十字路口，聲音太多，讓你漸漸看不清自己真正想去的地方。你需要一陣風，吹散迷茫。", 
+        name: "繚繞的薄霧", img: "./mist.png", desc: "站在人生十字路口，聲音太多，讓你漸漸看不清自己真正想去的地方。你需要一陣風，吹散迷茫。", 
         subStr: "【 青金石 / 螢石 】素串", 
         sub1: "1. 青金石", sub1Desc: "開啟洞察力，看見事物本質並輔助直覺", 
         sub2: "2. 螢石", sub2Desc: "清理大腦迷霧，清晰思緒並輔助你的決策力" 
