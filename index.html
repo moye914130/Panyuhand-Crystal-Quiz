@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>磐遇暖心製造所 - 專屬能量測驗</title>
+    
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <meta property="og:title" content="磐遇暖心製造所 - 專屬能量測驗">
+    <meta property="og:description" content="3分鐘測出你的靈魂水態與命定水晶，尋找你的專屬守護光芒。">
+    <meta property="og:image" content="https://moye914130.github.io/Panyuhand-Crystal-Quiz/logo.png">
+    <meta property="og:url" content="https://moye914130.github.io/Panyuhand-Crystal-Quiz/">
+    <meta property="og:type" content="website">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;700&display=swap');
@@ -64,7 +73,8 @@
         @keyframes floatUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         /* LOGO排版與視覺 */
-        .logo-img { display: block; margin: 0 auto 15px auto; max-width: 150px; }
+        .logo-img { display: block; margin: 0 auto 15px auto; max-width: 150px; transition: transform 0.3s ease; }
+        .logo-img:hover { transform: scale(1.05); }
         h1 { text-align: center; color: var(--text-main); font-weight: bold; letter-spacing: 2px; margin-bottom: 5px; font-size: 1.6em; }
         .subtitle { text-align: center; color: var(--accent); font-size: 0.95em; margin-bottom: 25px; line-height: 1.6; }
         
@@ -122,7 +132,8 @@
         /* 頁腳 */
         footer { margin-top: auto; text-align: center; font-size: 0.85em; color: var(--text-light); border-top: 1px solid #EAE0D5; padding-top: 20px; padding-bottom: 20px; }
         .social-link { color: var(--accent); text-decoration: none; font-weight: bold; }
-        .footer-logo { max-width: 80px; margin: 5px auto; display: block; opacity: 0.8; }
+        .footer-logo { max-width: 80px; margin: 5px auto; display: block; opacity: 0.8; transition: transform 0.3s ease; }
+        .footer-logo:hover { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -131,7 +142,9 @@
 
 <div class="container" id="app">
     <div id="page-1" class="page active">
-        <img src="logo.png" alt="磐遇暖心製造所" class="logo-img">
+        <a href="https://www.instagram.com/panyu_handmade/" target="_blank" title="前往磐遇暖心製造所 IG">
+            <img src="logo.png" alt="磐遇暖心製造所" class="logo-img">
+        </a>
         <h1>磐遇暖心製造所</h1>
         <p class="subtitle">☽ 尋找你的專屬守護光芒 ☾<br>3分鐘測出你的靈魂水態與命定水晶</p>
         
@@ -152,7 +165,9 @@
         <button onclick="startQuiz()">輕推書門，開始測驗</button>
         
         <footer>
-            <img src="logo.png" alt="磐遇暖心製造所" class="footer-logo">
+            <a href="https://www.instagram.com/panyu_handmade/" target="_blank" title="前往磐遇暖心製造所 IG">
+                <img src="logo.png" alt="磐遇暖心製造所" class="footer-logo">
+            </a>
             <p>來看美貨跟我的短影片分享：<br><a class="social-link" href="https://www.instagram.com/panyu_handmade/" target="_blank">@磐遇暖心製造所 IG</a></p>
             <p>© 2026 磐遇暖心製造所 Copyright</p>
         </footer>
@@ -166,7 +181,9 @@
 
     <div id="page-3" class="page" style="padding-bottom: 20px;">
         <div id="capture-area" style="background: var(--panel-bg); padding: 15px; border-radius: 8px;">
-            <img src="logo.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px;">
+            <a href="https://www.instagram.com/panyu_handmade/" target="_blank" title="前往磐遇暖心製造所 IG" style="display:block; text-align:center;">
+                <img src="logo.png" alt="磐遇暖心製造所" class="logo-img" style="max-width: 100px; display:inline-block;">
+            </a>
             <h2 style="margin-top:0;">你的專屬能量報告</h2>
             <p class="subtitle" style="margin-bottom: 15px;">親愛的 <span id="resName" style="font-weight:bold;"></span>，這是宇宙給你的指引</p>
             
@@ -243,7 +260,6 @@ const crystalDB = [
     { name: "【全能巔峰組合】十全十美全效款", numbers: [1,2,3,4,5,6,7,8,9], desc: "全脈輪共振，什麼都想要的終極懶人包。適合近期運勢低迷想全面改運的你。" }
 ];
 
-// ⭐ 已全面更新為英文檔名
 const statesDB = {
     "dewdrop": { 
         name: "晨曦的露珠", img: "dewdrop.png", desc: "你充滿了想法與熱情，但在風中微微顫抖。你不是沒有能力，你只是還在尋找能讓你安穩落下的那片葉子。", 
